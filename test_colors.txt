@@ -1,0 +1,187 @@
+==== SCENARIO 1 ====\n# Compliance Readiness Report
+
+⚠ HUMAN REVIEW REQUIRED — do not treat this as a compliance clearance. Escalate to your legal/compliance team before proceeding.
+
+## Executive Summary
+The AI-powered resume screening tool has been evaluated for compliance with GDPR and EU AI Act requirements. The overall risk level for this deployment is classified as **high-risk** due to multiple high-risk checkpoints being unaddressed in the GDPR assessment and the classification of the tool as high-risk under the EU AI Act. Ensuring compliance is crucial for mitigating significant legal risks.
+
+## GDPR Readiness
+- **GDPR Risk Level:** 🔴 **RED**
+
+### FLAGGED Checkpoints:
+1. **Checkpoints related to high risk (unclear/unaddressed status)**:
+   - **Checkpoint Name:** Lawful Basis for Processing
+     - **Risk Level:** high
+     - **Rationale:** The description does not specify which lawful basis for processing is being relied upon, making it unclear if requirements are met.
+     - **Guidance if flagged:** Identify and document which of the six lawful bases applies before deployment. If relying on consent, ensure it is freely given, specific, informed, and unambiguous.
+
+   - **Checkpoint Name:** Data Protection Impact Assessment (DPIA) Trigger
+     - **Risk Level:** high
+     - **Rationale:** The system makes automated decisions affecting applicants significantly; a DPIA should be conducted but there’s no indication it has been.
+     - **Guidance if flagged:** Conduct and document a formal DPIA before deployment, involving the Data Protection Officer if one is appointed.
+
+   - **Checkpoint Name:** Automated Decision-Making Safeguards
+     - **Risk Level:** high
+     - **Rationale:** The system makes automatic decisions to reject candidates without human review, which requires safeguards per Article 22.
+     - **Guidance if flagged:** Ensure there is a meaningful, competent human review step before any significant automated decision is finalized, and that individuals are informed of the logic involved.
+
+2. **Other Checkpoints (unclear status)**:
+   - **Checkpoint Name:** Data Minimization
+     - **Risk Level:** medium
+     - **Rationale:** It's unclear if all collected data is necessary for the stated purpose given the broad range of data types processed.
+     - **Guidance if flagged:** Review each data field collected and confirm a specific, documented purpose for each one. Remove fields that cannot be justified.
+
+   - **Checkpoint Name:** Purpose Limitation
+     - **Risk Level:** medium
+     - **Rationale:** The purpose of the data collection is described, but it’s unclear if the data is being used solely for this purpose.
+     - **Guidance if flagged:** If data is being reused for a new purpose, assess compatibility under Article 6(4) or obtain fresh consent/notice.
+
+   - **Checkpoint Name:** Storage Limitation
+     - **Risk Level:** medium
+     - **Rationale:** No information is provided about data retention periods, making it unclear if data is stored indefinitely.
+     - **Guidance if flagged:** Define and document a retention schedule per data category, implementing automated deletion or anonymization where feasible.
+
+   - **Checkpoint Name:** Data Subject Rights Support
+     - **Risk Level:** medium
+     - **Rationale:** It is unclear if individuals can exercise their data subject rights effectively within this system.
+     - **Guidance if flagged:** Build or document a process for handling data subject requests within the required one-month response window.
+
+   - **Checkpoint Name:** Data Breach Notification Readiness
+     - **Risk Level:** medium
+     - **Rationale:** No information is provided on breach notification processes, making readiness unclear.
+     - **Guidance if flagged:** Establish a documented breach detection and notification workflow.
+
+   - **Checkpoint Name:** Processor Agreements
+     - **Risk Level:** medium
+     - **Rationale:** Unclear if any third-party vendors are involved that would require a Data Processing Agreement.
+     - **Guidance if flagged:** Obtain and review a signed DPA from every third-party processor before sending them personal data.
+
+   - **Checkpoint Name:** Privacy by Design and by Default
+     - **Risk Level:** medium
+     - **Rationale:** There is no evidence that privacy was considered in the design of the system as described.
+     - **Guidance if flagged:** Document specific privacy-by-design measures taken.
+
+## EU AI Act Classification
+- **EU AI Act Risk Level:** 🔴 **RED**
+- **Classification Tier:** high-risk
+- **Matched Category:** Employment, worker management, and access to self-employment
+- **Obligations:**
+  1. Establish and maintain a risk management system across the AI system's lifecycle.
+  2. Implement data governance: training/validation/testing data must be relevant, representative, and checked for bias.
+  3. Prepare technical documentation demonstrating compliance before market placement.
+  4. Enable automatic logging (traceability) of the system's operation.
+  5. Design for effective human oversight, including the ability for a human to intervene or halt the system.
+  6. Ensure appropriate accuracy, robustness, and cybersecurity levels.
+  7. Undergo a conformity assessment before deployment.
+  8. Register the system in the EU high-risk AI database before placing on the market.
+
+- **Compliance Deadline Status:** Classification rules already apply. Note: the compliance deadline for many Annex III obligations is deferred from 2 August 2026 to 2 December 2027, pending final formal adoption.
+- **Escalate to Human:** true
+
+## Consolidated Action Items
+1. Clarify and document the lawful basis for processing personal data.
+2. Conduct and document a Data Protection Impact Assessment (DPIA).
+3. Implement human oversight mechanisms for automated decision-making processes.
+4. Review and specify the necessity of each data type collected for the stated purpose.
+5. Define and document a clear data retention policy and implement it effectively.
+6. Establish a process for individuals to exercise their data subject rights.
+7. Create a documented breach notification process.
+8. Review any third-party vendors and ensure Data Processing Agreements are in place.
+9. Document privacy-by-design measures taken during system development.
+10. Begin preparations to meet EU AI Act obligations for high-risk classification.
+
+---
+**Disclaimer:** This report is an automated first-pass readiness check produced by an AI system. It is NOT legal advice, a compliance certification, or a substitute for professional legal review. A qualified compliance professional should review these findings before any real deployment or business decision is made.\n# Compliance Readiness Report
+
+⚠ HUMAN REVIEW REQUIRED — do not treat this as a compliance clearance. Escalate to your legal/compliance team before proceeding.
+
+## Executive Summary
+The AI-powered resume screening tool has been evaluated for compliance with GDPR and EU AI Act requirements. The overall risk level for this deployment is classified as **high-risk** due to multiple high-risk checkpoints being unaddressed in the GDPR assessment and the classification of the tool as high-risk under the EU AI Act. Ensuring compliance is crucial for mitigating significant legal risks.
+
+## GDPR Readiness
+- **GDPR Risk Level:** 🔴 **RED**
+
+### FLAGGED Checkpoints:
+1. **Checkpoints related to high risk (unclear/unaddressed status)**:
+   - **Checkpoint Name:** Lawful Basis for Processing
+     - **Risk Level:** high
+     - **Rationale:** The description does not specify which lawful basis for processing is being relied upon, making it unclear if requirements are met.
+     - **Guidance if flagged:** Identify and document which of the six lawful bases applies before deployment. If relying on consent, ensure it is freely given, specific, informed, and unambiguous.
+
+   - **Checkpoint Name:** Data Protection Impact Assessment (DPIA) Trigger
+     - **Risk Level:** high
+     - **Rationale:** The system makes automated decisions affecting applicants significantly; a DPIA should be conducted but there’s no indication it has been.
+     - **Guidance if flagged:** Conduct and document a formal DPIA before deployment, involving the Data Protection Officer if one is appointed.
+
+   - **Checkpoint Name:** Automated Decision-Making Safeguards
+     - **Risk Level:** high
+     - **Rationale:** The system makes automatic decisions to reject candidates without human review, which requires safeguards per Article 22.
+     - **Guidance if flagged:** Ensure there is a meaningful, competent human review step before any significant automated decision is finalized, and that individuals are informed of the logic involved.
+
+2. **Other Checkpoints (unclear status)**:
+   - **Checkpoint Name:** Data Minimization
+     - **Risk Level:** medium
+     - **Rationale:** It's unclear if all collected data is necessary for the stated purpose given the broad range of data types processed.
+     - **Guidance if flagged:** Review each data field collected and confirm a specific, documented purpose for each one. Remove fields that cannot be justified.
+
+   - **Checkpoint Name:** Purpose Limitation
+     - **Risk Level:** medium
+     - **Rationale:** The purpose of the data collection is described, but it’s unclear if the data is being used solely for this purpose.
+     - **Guidance if flagged:** If data is being reused for a new purpose, assess compatibility under Article 6(4) or obtain fresh consent/notice.
+
+   - **Checkpoint Name:** Storage Limitation
+     - **Risk Level:** medium
+     - **Rationale:** No information is provided about data retention periods, making it unclear if data is stored indefinitely.
+     - **Guidance if flagged:** Define and document a retention schedule per data category, implementing automated deletion or anonymization where feasible.
+
+   - **Checkpoint Name:** Data Subject Rights Support
+     - **Risk Level:** medium
+     - **Rationale:** It is unclear if individuals can exercise their data subject rights effectively within this system.
+     - **Guidance if flagged:** Build or document a process for handling data subject requests within the required one-month response window.
+
+   - **Checkpoint Name:** Data Breach Notification Readiness
+     - **Risk Level:** medium
+     - **Rationale:** No information is provided on breach notification processes, making readiness unclear.
+     - **Guidance if flagged:** Establish a documented breach detection and notification workflow.
+
+   - **Checkpoint Name:** Processor Agreements
+     - **Risk Level:** medium
+     - **Rationale:** Unclear if any third-party vendors are involved that would require a Data Processing Agreement.
+     - **Guidance if flagged:** Obtain and review a signed DPA from every third-party processor before sending them personal data.
+
+   - **Checkpoint Name:** Privacy by Design and by Default
+     - **Risk Level:** medium
+     - **Rationale:** There is no evidence that privacy was considered in the design of the system as described.
+     - **Guidance if flagged:** Document specific privacy-by-design measures taken.
+
+## EU AI Act Classification
+- **EU AI Act Risk Level:** 🔴 **RED**
+- **Classification Tier:** high-risk
+- **Matched Category:** Employment, worker management, and access to self-employment
+- **Obligations:**
+  1. Establish and maintain a risk management system across the AI system's lifecycle.
+  2. Implement data governance: training/validation/testing data must be relevant, representative, and checked for bias.
+  3. Prepare technical documentation demonstrating compliance before market placement.
+  4. Enable automatic logging (traceability) of the system's operation.
+  5. Design for effective human oversight, including the ability for a human to intervene or halt the system.
+  6. Ensure appropriate accuracy, robustness, and cybersecurity levels.
+  7. Undergo a conformity assessment before deployment.
+  8. Register the system in the EU high-risk AI database before placing on the market.
+
+- **Compliance Deadline Status:** Classification rules already apply. Note: the compliance deadline for many Annex III obligations is deferred from 2 August 2026 to 2 December 2027, pending final formal adoption.
+- **Escalate to Human:** true
+
+## Consolidated Action Items
+1. Clarify and document the lawful basis for processing personal data.
+2. Conduct and document a Data Protection Impact Assessment (DPIA).
+3. Implement human oversight mechanisms for automated decision-making processes.
+4. Review and specify the necessity of each data type collected for the stated purpose.
+5. Define and document a clear data retention policy and implement it effectively.
+6. Establish a process for individuals to exercise their data subject rights.
+7. Create a documented breach notification process.
+8. Review any third-party vendors and ensure Data Processing Agreements are in place.
+9. Document privacy-by-design measures taken during system development.
+10. Begin preparations to meet EU AI Act obligations for high-risk classification.
+
+---
+**Disclaimer:** This report is an automated first-pass readiness check produced by an AI system. It is NOT legal advice, a compliance certification, or a substitute for professional legal review. A qualified compliance professional should review these findings before any real deployment or business decision is made.\n

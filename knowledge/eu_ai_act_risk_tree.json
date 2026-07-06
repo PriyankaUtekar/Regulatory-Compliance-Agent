@@ -1,0 +1,473 @@
+{
+    "framework": "EU AI Act",
+    "full_name": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence",
+    "purpose": "Structured decision tree used by the EU AI Act Agent to classify a described AI system into a risk tier and return the obligations that tier triggers. The tiers must be checked strictly in order (unacceptable, then high-risk, then limited-risk, then minimal-risk) and evaluation should stop at the first match.",
+    "how_to_use": "Step 1: check the system description against unacceptable_risk.prohibited_practices. If any match, classify as unacceptable_risk and stop. Step 2: check against BOTH high_risk.classification_routes.route_1_annex_iii_use_case AND high_risk.classification_routes.route_2_annex_i_regulated_product — a match on either route classifies the system as high-risk. Step 2a: if high-risk, determine whether the business is a provider or deployer (see high_risk.obligations_by_role.how_to_use) and return the appropriate obligations. Step 2b: if high-risk and the matched category is Annex III point 5(b) or 5(c), OR the deployer is a public-law body or public-service provider, also surface the high_risk.fundamental_rights_impact_assessment requirement. Step 3: check against limited_risk.transparency_triggers. If any match, classify as limited_risk. Step 4: if nothing matched, classify as minimal_risk.",
+    "decision_order": [
+        "unacceptable_risk",
+        "high_risk",
+        "limited_risk",
+        "minimal_risk"
+    ],
+    "risk_tiers": {
+        "unacceptable_risk": {
+            "description": "AI practices considered an unacceptable threat to fundamental rights. These are banned outright in the EU, with narrow, tightly-defined exceptions for some law enforcement uses.",
+            "legal_basis": "Article 5",
+            "status": "In force since 2 February 2025.",
+            "outcome_if_matched": "This system cannot be lawfully deployed in the EU in its current form. Recommend redesign or legal consultation immediately; do not proceed to lower-tier analysis.",
+            "prohibited_practices": [
+                {
+                    "id": "unacc_01",
+                    "name": "Social scoring by public authorities",
+                    "description": "Evaluating or classifying people over time based on social behavior or predicted characteristics, leading to detrimental treatment unrelated to the context in which the data was generated.",
+                    "keywords": [
+                        "social score",
+                        "citizen scoring",
+                        "trustworthiness rating",
+                        "behavioral scoring by government"
+                    ]
+                },
+                {
+                    "id": "unacc_02",
+                    "name": "Subliminal or manipulative techniques causing harm",
+                    "description": "AI that deploys subliminal techniques beyond a person's consciousness, or purposefully manipulative techniques, to materially distort behavior in a way likely to cause significant harm.",
+                    "keywords": [
+                        "subliminal",
+                        "manipulate behavior",
+                        "dark patterns causing harm",
+                        "covert influence"
+                    ]
+                },
+                {
+                    "id": "unacc_03",
+                    "name": "Exploitation of vulnerabilities",
+                    "description": "AI that exploits vulnerabilities of a specific group (age, disability, socio-economic situation) to materially distort behavior in a harmful way.",
+                    "keywords": [
+                        "targets children",
+                        "targets elderly",
+                        "exploits disability",
+                        "vulnerable group targeting"
+                    ]
+                },
+                {
+                    "id": "unacc_04",
+                    "name": "Real-time remote biometric identification in public spaces by law enforcement",
+                    "description": "Live facial/biometric identification of individuals in publicly accessible spaces for law enforcement, subject to narrow exceptions (e.g. searching for a specific victim, preventing an imminent terrorist threat).",
+                    "keywords": [
+                        "real-time facial recognition",
+                        "live biometric surveillance",
+                        "public space surveillance",
+                        "law enforcement biometric scan"
+                    ]
+                },
+                {
+                    "id": "unacc_05",
+                    "name": "Untargeted scraping for facial recognition databases",
+                    "description": "Creating or expanding facial recognition databases through untargeted scraping of facial images from the internet or CCTV footage.",
+                    "keywords": [
+                        "scraping facial images",
+                        "building face database",
+                        "CCTV scraping"
+                    ]
+                },
+                {
+                    "id": "unacc_06",
+                    "name": "Predictive policing based solely on profiling",
+                    "description": "Assessing the risk of a person committing a criminal offense based solely on profiling or personality traits, without objective, verifiable facts directly linked to a criminal activity.",
+                    "keywords": [
+                        "predictive policing",
+                        "crime risk score",
+                        "offender prediction based on profile"
+                    ]
+                },
+                {
+                    "id": "unacc_07",
+                    "name": "Emotion inference in workplace or education",
+                    "description": "Inferring emotions of individuals in workplace or educational settings, except for narrow medical or safety exceptions.",
+                    "keywords": [
+                        "emotion detection employees",
+                        "emotion recognition classroom",
+                        "mood monitoring workplace"
+                    ]
+                },
+                {
+                    "id": "unacc_08",
+                    "name": "Biometric categorization inferring sensitive attributes",
+                    "description": "Categorizing individuals based on biometric data to infer race, political opinions, trade union membership, religious beliefs, or sexual orientation.",
+                    "keywords": [
+                        "infer race from biometrics",
+                        "infer political views",
+                        "biometric categorization sensitive"
+                    ]
+                }
+            ]
+        },
+        "high_risk": {
+            "description": "AI systems that pose significant risk to health, safety, or fundamental rights, permitted but subject to strict pre- and post-market obligations. There are TWO independent routes into this tier — a system only needs to match ONE of them to be classified high-risk.",
+            "legal_basis": "Article 6, Annex I, and Annex III",
+            "status": "Classification rules already apply. Note: as of the May 2026 political agreement (Digital Omnibus), the compliance deadline for many Annex III obligations has been deferred from 2 August 2026 to 2 December 2027, pending final formal adoption. The agent should flag the tier and separately state which obligations are currently enforceable versus upcoming.",
+            "classification_routes": {
+                "how_to_check": "Check BOTH routes below. A match on EITHER route (not both required) classifies the system as high-risk.",
+                "route_1_annex_iii_use_case": {
+                    "description": "High-risk because of WHAT the system is used for, regardless of the product it's embedded in. This is the route most business-deployed AI systems (hiring tools, credit scoring, etc.) fall under.",
+                    "legal_basis": "Article 6(2) and Annex III",
+                    "categories": [
+                        {
+                            "id": "hr_01",
+                            "name": "Biometric identification and categorization",
+                            "annex_iii_point": "1",
+                            "keywords": [
+                                "facial recognition",
+                                "fingerprint matching",
+                                "biometric verification",
+                                "iris scan"
+                            ]
+                        },
+                        {
+                            "id": "hr_02",
+                            "name": "Management and operation of critical infrastructure",
+                            "annex_iii_point": "2",
+                            "keywords": [
+                                "power grid",
+                                "water supply",
+                                "traffic management",
+                                "critical infrastructure safety"
+                            ],
+                            "note": "Systems matching this category are EXCLUDED from the Fundamental Rights Impact Assessment requirement (see fundamental_rights_impact_assessment field below)."
+                        },
+                        {
+                            "id": "hr_03",
+                            "name": "Education and vocational training",
+                            "annex_iii_point": "3",
+                            "keywords": [
+                                "exam scoring",
+                                "student assessment",
+                                "admissions decision",
+                                "proctoring",
+                                "training access decision"
+                            ]
+                        },
+                        {
+                            "id": "hr_04",
+                            "name": "Employment, worker management, and access to self-employment",
+                            "annex_iii_point": "4",
+                            "keywords": [
+                                "resume screening",
+                                "candidate ranking",
+                                "hiring decision",
+                                "performance evaluation",
+                                "promotion decision",
+                                "termination decision",
+                                "task allocation monitoring"
+                            ]
+                        },
+                        {
+                            "id": "hr_05a",
+                            "name": "Access to essential public services and benefits",
+                            "annex_iii_point": "5(a)",
+                            "keywords": [
+                                "public benefits eligibility",
+                                "emergency services dispatch",
+                                "essential public service access"
+                            ]
+                        },
+                        {
+                            "id": "hr_05b",
+                            "name": "Creditworthiness assessment and credit scoring",
+                            "annex_iii_point": "5(b)",
+                            "keywords": [
+                                "credit scoring",
+                                "loan eligibility",
+                                "creditworthiness assessment"
+                            ],
+                            "note": "IMPORTANT: deployers of systems matching this category are also subject to the mandatory Fundamental Rights Impact Assessment (Article 27) — see fundamental_rights_impact_assessment field below. Exception: systems used solely to detect financial fraud are not covered by this point."
+                        },
+                        {
+                            "id": "hr_05c",
+                            "name": "Life and health insurance risk assessment and pricing",
+                            "annex_iii_point": "5(c)",
+                            "keywords": [
+                                "insurance pricing",
+                                "insurance eligibility",
+                                "life insurance risk assessment",
+                                "health insurance risk assessment"
+                            ],
+                            "note": "IMPORTANT: deployers of systems matching this category are also subject to the mandatory Fundamental Rights Impact Assessment (Article 27) — see fundamental_rights_impact_assessment field below."
+                        },
+                        {
+                            "id": "hr_06",
+                            "name": "Law enforcement",
+                            "annex_iii_point": "6",
+                            "keywords": [
+                                "crime risk assessment",
+                                "evidence reliability evaluation",
+                                "law enforcement investigation tool"
+                            ]
+                        },
+                        {
+                            "id": "hr_07",
+                            "name": "Migration, asylum, and border control management",
+                            "annex_iii_point": "7",
+                            "keywords": [
+                                "visa application assessment",
+                                "asylum eligibility",
+                                "border risk assessment"
+                            ]
+                        },
+                        {
+                            "id": "hr_08",
+                            "name": "Administration of justice and democratic processes",
+                            "annex_iii_point": "8",
+                            "keywords": [
+                                "judicial decision support",
+                                "legal outcome prediction",
+                                "election influence tool"
+                            ]
+                        }
+                    ]
+                },
+                "route_2_annex_i_regulated_product": {
+                    "description": "High-risk because the AI system is a safety component of a product that ALREADY has to undergo third-party conformity assessment under existing EU product-safety law — independent of Annex III use-case categories. A system can be high-risk via this route even if it doesn't match any Annex III category.",
+                    "legal_basis": "Article 6(1) and Annex I",
+                    "categories": [
+                        {
+                            "id": "a1_01",
+                            "name": "Machinery",
+                            "keywords": [
+                                "industrial machinery",
+                                "robotic arm safety",
+                                "factory equipment control"
+                            ]
+                        },
+                        {
+                            "id": "a1_02",
+                            "name": "Toys",
+                            "keywords": [
+                                "smart toy",
+                                "connected toy safety"
+                            ]
+                        },
+                        {
+                            "id": "a1_03",
+                            "name": "Recreational craft and marine equipment",
+                            "keywords": [
+                                "boat safety system",
+                                "marine navigation safety"
+                            ]
+                        },
+                        {
+                            "id": "a1_04",
+                            "name": "Lifts (elevators)",
+                            "keywords": [
+                                "elevator control system",
+                                "lift safety component"
+                            ]
+                        },
+                        {
+                            "id": "a1_05",
+                            "name": "Equipment for explosive atmospheres (ATEX)",
+                            "keywords": [
+                                "explosive atmosphere equipment",
+                                "ATEX safety component"
+                            ]
+                        },
+                        {
+                            "id": "a1_06",
+                            "name": "Radio equipment",
+                            "keywords": [
+                                "radio equipment safety compliance"
+                            ]
+                        },
+                        {
+                            "id": "a1_07",
+                            "name": "Pressure equipment",
+                            "keywords": [
+                                "pressure vessel safety control"
+                            ]
+                        },
+                        {
+                            "id": "a1_08",
+                            "name": "Cableway installations",
+                            "keywords": [
+                                "cable car safety system",
+                                "ski lift control"
+                            ]
+                        },
+                        {
+                            "id": "a1_09",
+                            "name": "Appliances burning gaseous fuels",
+                            "keywords": [
+                                "gas appliance safety control"
+                            ]
+                        },
+                        {
+                            "id": "a1_10",
+                            "name": "Medical devices and in vitro diagnostic medical devices",
+                            "keywords": [
+                                "medical device software",
+                                "diagnostic AI device",
+                                "in vitro diagnostic"
+                            ]
+                        },
+                        {
+                            "id": "a1_11",
+                            "name": "Civil aviation security and equipment",
+                            "keywords": [
+                                "aviation safety system",
+                                "aircraft equipment control"
+                            ]
+                        },
+                        {
+                            "id": "a1_12",
+                            "name": "Two- or three-wheel vehicles and agricultural/forestry vehicles",
+                            "keywords": [
+                                "motorcycle safety system",
+                                "tractor autonomous control"
+                            ]
+                        },
+                        {
+                            "id": "a1_13",
+                            "name": "Motor vehicles (type-approval)",
+                            "keywords": [
+                                "autonomous vehicle safety",
+                                "advanced driver assistance",
+                                "vehicle type-approval component"
+                            ]
+                        },
+                        {
+                            "id": "a1_14",
+                            "name": "Rail system interoperability",
+                            "keywords": [
+                                "railway signaling safety",
+                                "train control system"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "obligations_by_role": {
+                "how_to_use": "Determine whether the described business is acting as a PROVIDER (building/training/substantially modifying the AI system and placing it on the market) or a DEPLOYER (using an AI system, typically bought or licensed from a vendor, under its own authority) — most business use cases described to this tool (e.g. 'a company wants to use an AI tool to screen resumes') are DEPLOYERS. If the role is ambiguous from the description, default to presenting deployer_obligations as primary and note that provider_obligations would additionally apply if the business built or substantially modified the system itself.",
+                "provider_obligations": [
+                    "Establish and maintain a risk management system across the AI system's lifecycle",
+                    "Implement data governance: training/validation/testing data must be relevant, representative, and checked for bias",
+                    "Prepare technical documentation demonstrating compliance before market placement",
+                    "Design the system to enable automatic logging (traceability) of its operation",
+                    "Design the system for effective human oversight, including the ability for a human to intervene or halt it",
+                    "Ensure appropriate accuracy, robustness, and cybersecurity levels",
+                    "Undergo a conformity assessment before placing the system on the market",
+                    "Draw up an EU declaration of conformity and affix CE marking",
+                    "Register the system in the EU high-risk AI database (Article 49) before placing it on the market",
+                    "Establish a post-market monitoring system (Article 72) and report serious incidents to authorities (Article 73)"
+                ],
+                "deployer_obligations": [
+                    "Use the system strictly in accordance with the provider's instructions for use",
+                    "Assign human oversight to individuals who have the necessary competence, training, and authority",
+                    "Monitor the system's operation and inform the provider and relevant authority if a risk to health, safety, or fundamental rights emerges",
+                    "Keep the logs automatically generated by the system that are under the deployer's control, for at least 6 months unless other law requires longer",
+                    "If deploying in the workplace, inform affected workers and their representatives before the system is put into use",
+                    "Where applicable, conduct a Fundamental Rights Impact Assessment before first use — see fundamental_rights_impact_assessment field below",
+                    "Cooperate with market surveillance authorities on request"
+                ]
+            },
+            "fundamental_rights_impact_assessment": {
+                "legal_basis": "Article 27",
+                "description": "A distinct, deployer-specific obligation to assess a high-risk AI system's impact on individuals' fundamental rights before first use. It complements, but does not replace, a GDPR Article 35 DPIA — if both are triggered, the FRIA must cover fundamental-rights considerations beyond data protection specifically (e.g. non-discrimination, human dignity, workers' rights, right to an effective remedy).",
+                "who_must_conduct_one": [
+                    "Deployers that are bodies governed by public law",
+                    "Deployers that are private entities providing public services",
+                    "Deployers of high-risk systems matching Annex III point 5(b) — creditworthiness assessment/credit scoring (excluding fraud-detection-only systems)",
+                    "Deployers of high-risk systems matching Annex III point 5(c) — life and health insurance risk assessment and pricing"
+                ],
+                "excluded": "High-risk systems matching Annex III point 2 (critical infrastructure) are excluded from this requirement even for otherwise-covered deployers.",
+                "what_it_must_include": [
+                    "A description of the deployer's processes in which the system will be used, in line with its intended purpose",
+                    "The period of time and frequency the system is intended to be used",
+                    "The categories of people and groups likely to be affected",
+                    "The specific risks of harm to those people or groups, considering the provider's Article 13 instructions",
+                    "The human oversight measures implemented",
+                    "The steps to be taken if the identified risks materialize, including internal governance and complaint mechanisms"
+                ],
+                "notification_requirement": "After completing the assessment, the deployer must notify the relevant market surveillance authority of the results using a template the AI Office is developing.",
+                "status": "Baseline application date is 2 August 2026. Given the broader 2026 Digital Omnibus deferral discussed for Annex III obligations generally, it is not fully confirmed whether Article 27 specifically was included in that deferral — flag this as worth verifying against the current official timeline rather than treating Aug 2026 as certain.",
+                "escalate_to_human": true
+            }
+        },
+        "limited_risk": {
+            "description": "AI systems that pose specific transparency risks to individuals, who must be informed they are interacting with AI or viewing AI-generated content.",
+            "legal_basis": "Article 50",
+            "status": "Applies from 2 August 2026.",
+            "transparency_triggers": [
+                {
+                    "id": "lr_01",
+                    "name": "Chatbots and conversational AI",
+                    "description": "Any AI system intended to interact directly with natural persons must disclose that the user is interacting with an AI, unless obvious from context.",
+                    "keywords": [
+                        "chatbot",
+                        "virtual assistant",
+                        "conversational agent",
+                        "customer support bot"
+                    ]
+                },
+                {
+                    "id": "lr_02",
+                    "name": "Synthetic content / deepfakes",
+                    "description": "AI-generated or manipulated image, audio, or video content resembling real people, objects, or events must be labeled as AI-generated.",
+                    "keywords": [
+                        "deepfake",
+                        "AI-generated image",
+                        "synthetic video",
+                        "voice clone",
+                        "generated marketing content"
+                    ]
+                },
+                {
+                    "id": "lr_03",
+                    "name": "Emotion recognition and biometric categorization systems (non-prohibited uses)",
+                    "description": "Individuals must be informed when an emotion recognition or biometric categorization system is being applied to them, outside the prohibited-use contexts above.",
+                    "keywords": [
+                        "emotion recognition consumer product",
+                        "biometric categorization retail"
+                    ]
+                },
+                {
+                    "id": "lr_04",
+                    "name": "AI-generated text on matters of public interest",
+                    "description": "AI-generated text published to inform the public on matters of public interest must be labeled, unless it has undergone human review with editorial responsibility.",
+                    "keywords": [
+                        "AI-generated news",
+                        "AI-written article public interest"
+                    ]
+                }
+            ],
+            "obligations_if_matched": [
+                "Clearly disclose AI interaction to users at the start of the interaction",
+                "Label AI-generated or manipulated audio/image/video content in a machine-readable and detectable format",
+                "Inform individuals when emotion recognition or biometric categorization is applied to them"
+            ]
+        },
+        "minimal_risk": {
+            "description": "The vast majority of AI systems fall here. No mandatory obligations under the AI Act beyond general product safety and existing law (e.g. GDPR still applies independently).",
+            "legal_basis": "No specific Article; default classification",
+            "examples": [
+                "spam filters",
+                "AI-enabled inventory management",
+                "recommendation engines with no significant-effect decisions",
+                "AI features in video games"
+            ],
+            "obligations_if_matched": [
+                "No mandatory AI Act obligations",
+                "Voluntary adherence to codes of conduct is encouraged",
+                "Remember other laws (e.g. GDPR) may still independently apply if personal data is involved"
+            ]
+        }
+    },
+    "output_format_guidance": {
+        "classification": "one of: unacceptable_risk, high_risk, limited_risk, minimal_risk",
+        "matched_category_or_trigger": "the specific id/name that caused the classification, and which route (Annex III use-case vs. Annex I regulated-product) if high-risk",
+        "assumed_role": "provider, deployer, or both — state which was assumed and why, if high-risk",
+        "obligations": "for high_risk: pulled from obligations_by_role.provider_obligations and/or obligations_by_role.deployer_obligations depending on assumed_role. For limited_risk/minimal_risk: pulled from that tier's obligations_if_matched as before.",
+        "fria_required": "true/false — true if the fundamental_rights_impact_assessment.who_must_conduct_one conditions are met, false otherwise; only relevant when classification is high_risk",
+        "status_note": "whether the relevant obligations are currently in force or upcoming, based on the status field(s)",
+        "escalate_to_human": "true if classification is unacceptable_risk or high_risk, otherwise false"
+    }
+}

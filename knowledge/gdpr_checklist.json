@@ -1,0 +1,271 @@
+{
+    "framework": "GDPR",
+    "full_name": "General Data Protection Regulation (EU) 2016/679",
+    "purpose": "Structured checklist (16 checkpoints) used by the GDPR Agent to evaluate a described AI system or business process against core GDPR obligations. Covers the core operational principles, lawful basis and special category rules, DPIA/high-risk triggers, individual rights (both proactive transparency and reactive request handling), automated decision-making, international transfers, breach response, vendor management, privacy by design, recordkeeping (ROPA), DPO requirements, and an AI-specific note on model erasure tension. This is not exhaustive of the full GDPR text (99 articles across 11 chapters) — it is scoped to the checkpoints most relevant to assessing AI system deployments. Each checkpoint should be evaluated independently and the results combined into an overall readiness summary.",
+    "how_to_use": "For each checkpoint, the agent should read the user's system description, look for the associated keywords/context clues, and determine: (1) does this checkpoint apply, (2) is there evidence it is addressed, (3) what risk_if_missing applies if it is not addressed. Checkpoints with risk_if_missing = 'high' that appear unaddressed should contribute to triggering the human-in-the-loop escalation gate.",
+    "checklist": [
+        {
+            "id": "gdpr_01",
+            "name": "Lawful Basis for Processing",
+            "article_reference": "Article 6",
+            "question": "Is there a valid lawful basis for processing the personal data involved (consent, contract necessity, legal obligation, vital interests, public task, or legitimate interest)?",
+            "why_it_matters": "GDPR requires every instance of personal data processing to rest on one of six lawful bases. Without one, the processing is unlawful regardless of how well-intentioned or secure the system is.",
+            "risk_if_missing": "high",
+            "keywords": [
+                "personal data",
+                "customer data",
+                "user data",
+                "employee data",
+                "collects",
+                "processes",
+                "stores"
+            ],
+            "guidance_if_flagged": "Identify and document which of the six lawful bases applies before deployment. If relying on consent, ensure it is freely given, specific, informed, and unambiguous."
+        },
+        {
+            "id": "gdpr_02",
+            "name": "Special Category Data Check",
+            "article_reference": "Article 9",
+            "question": "Does the system process special category data such as health, biometric, genetic, racial/ethnic origin, religious belief, political opinion, sexual orientation, or trade union membership data?",
+            "why_it_matters": "Special category data requires an additional, stricter legal basis on top of the standard Article 6 basis, and often triggers a mandatory DPIA.",
+            "risk_if_missing": "high",
+            "keywords": [
+                "health",
+                "medical",
+                "biometric",
+                "facial recognition",
+                "fingerprint",
+                "genetic",
+                "ethnicity",
+                "religion",
+                "sexual orientation",
+                "political"
+            ],
+            "guidance_if_flagged": "Confirm an Article 9(2) exception applies (e.g. explicit consent, employment law obligation) and document it separately from the general lawful basis."
+        },
+        {
+            "id": "gdpr_03",
+            "name": "Data Minimization",
+            "article_reference": "Article 5(1)(c)",
+            "question": "Does the system collect only the personal data that is adequate, relevant, and limited to what is necessary for its stated purpose?",
+            "why_it_matters": "Collecting more data than needed increases breach impact and regulatory exposure, and is itself a standalone violation even if the extra data is never misused.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "collects all",
+                "broad data collection",
+                "all available data",
+                "comprehensive profile"
+            ],
+            "guidance_if_flagged": "Review each data field collected and confirm a specific, documented purpose for each one. Remove fields that cannot be justified."
+        },
+        {
+            "id": "gdpr_04",
+            "name": "Purpose Limitation",
+            "article_reference": "Article 5(1)(b)",
+            "question": "Is the personal data used only for the specific, explicit purpose it was originally collected for?",
+            "why_it_matters": "Repurposing data for a new, incompatible use without a new lawful basis or notice to the data subject is a common and easily-missed violation, especially in AI systems that reuse existing datasets for new model training.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "repurposed",
+                "secondary use",
+                "training data reused",
+                "also used for"
+            ],
+            "guidance_if_flagged": "If data is being reused for a new purpose (e.g. training an AI model on data originally collected for customer service), assess compatibility under Article 6(4) or obtain fresh consent/notice."
+        },
+        {
+            "id": "gdpr_05",
+            "name": "Storage Limitation",
+            "article_reference": "Article 5(1)(e)",
+            "question": "Is there a defined retention period after which the personal data is deleted or anonymized?",
+            "why_it_matters": "Indefinite retention is a common gap in AI systems, particularly around training data, logs, and chat histories, and is a frequent finding in regulatory audits.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "retention",
+                "stored indefinitely",
+                "logs kept",
+                "no deletion policy"
+            ],
+            "guidance_if_flagged": "Define and document a retention schedule per data category, and implement automated deletion or anonymization where feasible."
+        },
+        {
+            "id": "gdpr_06",
+            "name": "Data Protection Impact Assessment (DPIA) Trigger",
+            "article_reference": "Article 35",
+            "question": "Does the system involve large-scale processing, systematic monitoring of individuals, large-scale special category data processing, or automated decision-making with legal or similarly significant effects?",
+            "why_it_matters": "If any of these trigger conditions are met, a DPIA is legally required before processing begins, not optional best practice.",
+            "risk_if_missing": "high",
+            "keywords": [
+                "large-scale",
+                "systematic monitoring",
+                "automated decision",
+                "profiling",
+                "scoring",
+                "screening"
+            ],
+            "guidance_if_flagged": "Conduct and document a formal DPIA before deployment, involving the Data Protection Officer if one is appointed."
+        },
+        {
+            "id": "gdpr_07",
+            "name": "Data Subject Rights Support",
+            "article_reference": "Articles 12-22",
+            "question": "Can individuals exercise their rights to access, rectify, erase, restrict, port, or object to the processing of their data through this system?",
+            "why_it_matters": "Data subject rights are enforceable individual rights; systems that cannot technically support access or deletion requests create both compliance and reputational risk.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "no user access",
+                "cannot delete",
+                "opaque model",
+                "black box"
+            ],
+            "guidance_if_flagged": "Build or document a process for handling data subject requests within the required one-month response window, including how requests involving AI-derived data (e.g. model inferences) will be handled."
+        },
+        {
+            "id": "gdpr_08",
+            "name": "Automated Decision-Making Safeguards",
+            "article_reference": "Article 22",
+            "question": "Does the system make decisions about individuals using solely automated means, with legal or similarly significant effects (e.g. hiring, credit, insurance pricing)?",
+            "why_it_matters": "Article 22 gives individuals the right not to be subject to purely automated decisions with significant effects, unless an exception applies, and always requires a meaningful human review option.",
+            "risk_if_missing": "high",
+            "keywords": [
+                "automated decision",
+                "auto-reject",
+                "auto-approve",
+                "no human review",
+                "algorithmic decision",
+                "scoring",
+                "ranking candidates"
+            ],
+            "guidance_if_flagged": "Ensure there is a meaningful, competent human review step before any significant automated decision is finalized, and that individuals are informed of the logic involved."
+        },
+        {
+            "id": "gdpr_09",
+            "name": "Cross-Border Transfer Mechanism",
+            "article_reference": "Articles 44-49",
+            "question": "If personal data is transferred outside the EU/EEA (e.g. to a non-EU cloud provider or AI model API), is there a valid transfer mechanism in place (adequacy decision, Standard Contractual Clauses, Binding Corporate Rules)?",
+            "why_it_matters": "Many AI systems call US-hosted model APIs; this counts as an international data transfer and requires a valid legal mechanism, which is frequently overlooked.",
+            "risk_if_missing": "high",
+            "keywords": [
+                "cloud provider",
+                "US-based",
+                "third country",
+                "hosted outside EU",
+                "API call to",
+                "non-EU server"
+            ],
+            "guidance_if_flagged": "Confirm the destination country has an adequacy decision, or put Standard Contractual Clauses in place with the vendor, and complete a Transfer Impact Assessment if required."
+        },
+        {
+            "id": "gdpr_10",
+            "name": "Data Breach Notification Readiness",
+            "article_reference": "Articles 33-34",
+            "question": "Is there a process in place to detect a personal data breach and notify the relevant supervisory authority within 72 hours, and affected individuals where required?",
+            "why_it_matters": "The 72-hour window is short and requires a pre-built process; organizations that improvise this during an actual breach routinely miss the deadline.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "no incident response",
+                "no breach process",
+                "monitoring not defined"
+            ],
+            "guidance_if_flagged": "Establish a documented breach detection and notification workflow, including named responsible parties, before go-live."
+        },
+        {
+            "id": "gdpr_11",
+            "name": "Processor Agreements",
+            "article_reference": "Article 28",
+            "question": "If a third-party vendor (e.g. an AI model provider, cloud host, analytics tool) processes personal data on the organization's behalf, is a Data Processing Agreement (DPA) in place?",
+            "why_it_matters": "Using a third-party AI API or SaaS tool without a DPA is a direct compliance gap regardless of the vendor's own security posture.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "third-party vendor",
+                "SaaS tool",
+                "API provider",
+                "outsourced",
+                "external processor"
+            ],
+            "guidance_if_flagged": "Obtain and review a signed DPA from every third-party processor before sending them personal data."
+        },
+        {
+            "id": "gdpr_12",
+            "name": "Privacy by Design and by Default",
+            "article_reference": "Article 25",
+            "question": "Was data protection considered in the system's design from the outset (e.g. default privacy-protective settings, pseudonymization, access controls), rather than added afterward?",
+            "why_it_matters": "This is a standalone legal obligation, not just good practice, and regulators specifically look for evidence of it during investigations.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "default settings",
+                "opt-out by default",
+                "access controls",
+                "pseudonymized",
+                "anonymized"
+            ],
+            "guidance_if_flagged": "Document specific privacy-by-design measures taken (e.g. pseudonymization of training data, role-based access controls, default-private settings)."
+        },
+        {
+            "id": "gdpr_13",
+            "name": "Records of Processing Activities (ROPA)",
+            "article_reference": "Article 30",
+            "question": "Is there a documented record covering what personal data this system processes, why, the categories of recipients, retention periods, and security measures in place?",
+            "why_it_matters": "A Records of Processing Activities entry is one of the first things a supervisory authority requests in an actual investigation. Its absence is treated as a standalone compliance gap even if the underlying processing itself is otherwise lawful, and it is required for most organizations with 250+ employees or processing that is not occasional, that touches special category data, or that risks individuals' rights.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "no documentation",
+                "undocumented processing",
+                "no data inventory",
+                "not logged centrally"
+            ],
+            "guidance_if_flagged": "Create or update a ROPA entry for this system covering purpose, data categories, recipients, retention period, and security measures, and keep it current as the system evolves."
+        },
+        {
+            "id": "gdpr_14",
+            "name": "Data Protection Officer (DPO) Requirement",
+            "article_reference": "Article 37",
+            "question": "Does this system involve large-scale systematic monitoring of individuals, or large-scale processing of special category data, such that a Data Protection Officer must be appointed?",
+            "why_it_matters": "AI systems that score, profile, rank, or continuously monitor people very often cross the 'large-scale systematic monitoring' threshold without the deploying organization realizing a DPO becomes mandatory, not optional, once that threshold is met.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "scoring",
+                "profiling",
+                "ranking",
+                "continuous monitoring",
+                "systematic monitoring",
+                "large-scale"
+            ],
+            "guidance_if_flagged": "Assess whether this system's scale and nature triggers the mandatory DPO requirement, and if so confirm a DPO is formally appointed and this system falls within their oversight."
+        },
+        {
+            "id": "gdpr_15",
+            "name": "Right to Be Informed / Transparency at Collection",
+            "article_reference": "Articles 13-14",
+            "question": "Are individuals proactively told, at or before the point their data is collected, that an AI system will process their data, for what purpose, and using what logic (distinct from whether they can later request access or deletion)?",
+            "why_it_matters": "This is frequently confused with data subject rights support (reactive requests), but Articles 13-14 impose a separate, proactive obligation: information must be given upfront, unprompted, not only provided on request. AI-specific disclosure (that an automated/AI system is involved) is often missed entirely.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "no privacy notice",
+                "not disclosed upfront",
+                "silent data collection",
+                "no upfront notice"
+            ],
+            "guidance_if_flagged": "Provide a clear, upfront privacy notice at the point of data collection that specifically discloses AI/automated processing, its purpose, and the logic involved where feasible."
+        },
+        {
+            "id": "gdpr_16",
+            "name": "AI Model Erasure Tension",
+            "article_reference": "Article 17 (Right to Erasure), applied to AI/ML context",
+            "question": "If a data subject requests erasure, can their personal data actually be removed, given that it may be embedded in a trained model's weights rather than only in a retrievable database record?",
+            "why_it_matters": "This is an emerging, AI-specific compliance tension rather than a traditional article: once personal data has been used to train a model, 'deleting' it is not always technically straightforward the way deleting a database row is. Organizations deploying AI need a documented position on this (e.g. retraining plans, filtering at inference time, or data minimization at the training stage) rather than an unaddressed gap.",
+            "risk_if_missing": "medium",
+            "keywords": [
+                "trained on personal data",
+                "model trained using",
+                "fine-tuned on user data",
+                "training dataset includes"
+            ],
+            "guidance_if_flagged": "Document how erasure requests will be handled for data used in model training — options include exclusion from future retraining, output filtering, or minimizing personal data in training sets from the outset. Flag this as an area of active regulatory and technical debate, not a fully solved problem."
+        }
+    ],
+    "output_format_guidance": {
+        "per_checkpoint": "applicable (true/false), status (addressed/unaddressed/unclear), risk_if_missing, one-line rationale",
+        "overall_summary": "count of high-risk unaddressed items; overall_color (green = 0 high-risk gaps, yellow = medium-risk gaps only, red = 1+ high-risk gaps)"
+    }
+}

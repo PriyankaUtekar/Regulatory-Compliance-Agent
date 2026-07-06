@@ -1,0 +1,169 @@
+{
+  "eval_set_id": "compliance_scenarios",
+  "name": "Compliance Evaluator Scenarios",
+  "description": "Standard 6 test scenarios to verify agent tool trajectories and final responses.",
+  "eval_cases": [
+    {
+      "eval_id": "resume_screener",
+      "conversation": [
+        {
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "We are deploying an AI-powered resume screening tool for our HR department that automatically parses uploaded CVs and ranks job applicants on a scale of 1 to 100 based on skills, work experience, education, and inferred cultural fit. The system processes personal data including full names, addresses, employment history, educational qualifications, and any LinkedIn profile links candidates choose to include. Candidates who score below 60 are automatically rejected without any human review, while those above 80 are fast-tracked directly to a first-round interview. The tool will be used across all EU member state hiring operations and is expected to process approximately 50,000 applications per year. Planned release date: October 15, 2026."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              { "name": "load_gdpr_checklist", "args": {} },
+              { "name": "load_eu_ai_act_risk_tree", "args": {} }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              { "text": "high_risk" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "customer_support_chatbot",
+      "conversation": [
+        {
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Our e-commerce platform has developed an in-house AI-powered customer support chatbot to handle common enquiries such as order tracking, return requests, product questions, and complaints — available 24/7 in place of live agents for Tier-1 support. The chatbot uses the customer's order ID and email address to look up order status but does not store any conversation logs beyond the current session, and it never requests payment details, passwords, or sensitive personal information. All unresolved issues are escalated to a human agent after two failed resolution attempts. The system will serve customers across the UK and EU, handling an estimated 10,000 interactions per day. Planned release date: September 1, 2026."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              { "name": "load_gdpr_checklist", "args": {} },
+              { "name": "load_eu_ai_act_risk_tree", "args": {} }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              { "text": "limited_risk" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "credit_scoring_tool",
+      "conversation": [
+        {
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "A major retail bank is deploying an AI credit-scoring model that evaluates loan applications and produces a creditworthiness score used to approve, conditionally approve, or reject personal loan requests of up to €50,000. The model ingests applicant data including income, employment status, existing debt, credit history, residential postcode, and self-declared spending habits collected from the loan application form. Decisions made by the model are fully automated for applications below €10,000 with no mandatory human review step; a loan officer only intervenes for larger amounts or when the model confidence score falls below a set threshold. The system will be used in Germany, France, and the Netherlands and is expected to process around 200,000 applications annually. Planned release date: November 20, 2026."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              { "name": "load_gdpr_checklist", "args": {} },
+              { "name": "load_eu_ai_act_risk_tree", "args": {} }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              { "text": "high_risk" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "marketing_image_generator",
+      "conversation": [
+        {
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Our marketing agency is building an AI image generation service that creates original promotional visuals, social media banners, and product lifestyle shots on demand for small business clients who cannot afford professional photography. Users describe the image they want in plain text and the system returns up to five generated image options; users select and download whichever they prefer. No personal data about end consumers is collected or processed — only the business client's account email and billing information are stored, solely for invoicing purposes. The generated images are used purely for advertising and contain no biometric data, political content, or representations of real identifiable individuals. Planned release date: December 5, 2026."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              { "name": "load_gdpr_checklist", "args": {} },
+              { "name": "load_eu_ai_act_risk_tree", "args": {} }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              { "text": "minimal_risk" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "forklift_safety_ai",
+      "conversation": [
+        {
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "We are a logistics company deploying an AI-powered safety component on our fleet of warehouse forklifts that automatically detects pedestrians and halts the machinery to prevent collisions. This system operates entirely locally on the forklift, processing real-time video feeds from onboard cameras without recording or transmitting any footage or personal data. The system is a safety component of machinery covered under EU product safety regulations, and we are using it strictly in accordance with the manufacturer's instructions. It will be deployed across our warehouse operations in Germany and Poland. Planned release date: March 1, 2027."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              { "name": "load_gdpr_checklist", "args": {} },
+              { "name": "load_eu_ai_act_risk_tree", "args": {} }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              { "text": "high_risk" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "medical_device_ai",
+      "conversation": [
+        {
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "We are an established medical device manufacturer developing a new MRI machine with an embedded AI component that assists radiologists in diagnosing potential tumors from scans. The system processes pseudonymised patient scan data and outputs a bounding box highlighting areas of concern. The final diagnostic decision is always made by a qualified human radiologist, and the AI acts solely as a second-reader support tool. The device will be sold to hospitals across the EU and UK, with an expected rollout in early 2027. Patient data is stored locally on the hospital's secure servers and is not transmitted back to us for training purposes. Planned release date: January 10, 2027."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              { "name": "load_gdpr_checklist", "args": {} },
+              { "name": "load_eu_ai_act_risk_tree", "args": {} }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              { "text": "high_risk" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
