@@ -1,5 +1,6 @@
-google-adk[extensions,eval]>=2.0.0
+gradio
+google-adk[extensions]
 google-genai
 python-dotenv
-gradio>=4.0.0
 mcp
+requests
